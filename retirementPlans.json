@@ -1,0 +1,82 @@
+[
+  {
+    "id": 1,
+    "name": "Basic Retirement Plan",
+    "description": "A simple retirement plan for beginners.",
+    "contributions": 5000,
+    "startDate": "2023-01-01",
+    "endDate": "2033-01-01"
+  },
+  {
+    "id": 2,
+    "name": "Advanced Retirement Plan",
+    "description": "A comprehensive plan for experienced investors.",
+    "contributions": 10000,
+    "startDate": "2022-01-01",
+    "endDate": "2042-01-01"
+  },
+  {
+    "id": 3,
+    "name": "Family Retirement Plan",
+    "description": "A retirement plan designed for families.",
+    "contributions": 7000,
+    "startDate": "2024-06-01",
+    "endDate": "2044-06-01"
+  },
+  {
+    "id": 4,
+    "name": "Executive Retirement Plan",
+    "description": "An exclusive plan for high-income earners.",
+    "contributions": 20000,
+    "startDate": "2021-05-01",
+    "endDate": "2031-05-01"
+  },
+  {
+    "id": 5,
+    "name": "Green Retirement Plan",
+    "description": "An eco-friendly plan with sustainable investments.",
+    "contributions": 8000,
+    "startDate": "2020-03-01",
+    "endDate": "2035-03-01"
+  },
+  {
+    "id": 6,
+    "name": "Health-focused Retirement Plan",
+    "description": "A plan that includes health and wellness benefits.",
+    "contributions": 6000,
+    "startDate": "2023-07-01",
+    "endDate": "2043-07-01"
+  },
+  {
+    "id": 7,
+    "name": "Early Retirement Plan",
+    "description": "A plan for those aiming to retire early.",
+    "contributions": 15000,
+    "startDate": "2019-11-01",
+    "endDate": "2029-11-01"
+  },
+  {
+    "id": 8,
+    "name": "Flex Retirement Plan",
+    "description": "A flexible retirement plan with adjustable contributions.",
+    "contributions": 9000,
+    "startDate": "2025-02-01",
+    "endDate": "2035-02-01"
+  },
+  {
+    "id": 9,
+    "name": "Secure Retirement Plan",
+    "description": "A highly secure plan with low-risk investments.",
+    "contributions": 11000,
+    "startDate": "2021-08-01",
+    "endDate": "2036-08-01"
+  },
+  {
+    "id": 10,
+    "name": "Tech-savvy Retirement Plan",
+    "description": "A plan focused on technology and innovation investments.",
+    "contributions": 12000,
+    "startDate": "2023-09-01",
+    "endDate": "2038-09-01"
+  }
+]
