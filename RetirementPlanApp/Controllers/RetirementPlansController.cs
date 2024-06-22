@@ -1,9 +1,11 @@
 ﻿using RetirementPlanApp.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using Newtonsoft.Json;
 
 
 namespace RetirementPlanApp.Controllers
@@ -17,7 +19,9 @@ namespace RetirementPlanApp.Controllers
             var response = await _httpClient.GetAsync("api/retirementplans");
             response.EnsureSuccessStatusCode();
             var plans = await response.Content.ReadAsAsync<List<RetirementPlan>>();
-            return View(plans);
+            var sortedPlans = plans.OrderBy(p => p.Id).ToList();
+
+            return View(sortedPlans);
         }
 
 
@@ -28,15 +32,39 @@ namespace RetirementPlanApp.Controllers
         }
 
         [HttpPost]
+
         public async Task<ActionResult> Create(RetirementPlan plan)
         {
-            var response = await _httpClient.PostAsJsonAsync("api/retirementplans", plan);
+            if (!ModelState.IsValid)
+            {
+                return View(plan);
+            }
+
+            // Fetch the existing plans
+            var response = await _httpClient.GetAsync("api/retirementplans");
+            response.EnsureSuccessStatusCode();
+            var jsonString = await response.Content.ReadAsStringAsync();
+
+            // Deserialize the JSON string to a dynamic object
+            var plans = JsonConvert.DeserializeObject<List<RetirementPlan>>(jsonString);
+
+            // Check for duplicate names
+            if (plans.Any(p => p.Name.Equals(plan.Name, StringComparison.OrdinalIgnoreCase)))
+            {
+                ModelState.AddModelError("Name", "A plan with this name already exists.");
+                return View(plan);
+            }
+
+            // If no duplicate, proceed to create the new plan
+            response = await _httpClient.PostAsJsonAsync("api/retirementplans", plan);
             response.EnsureSuccessStatusCode();
             return RedirectToAction("Index");
         }
 
+
         public async Task<ActionResult> Edit(int id)
         {
+
             var response = await _httpClient.GetAsync($"api/retirementplans/{id}");
             response.EnsureSuccessStatusCode();
             var plan = await response.Content.ReadAsAsync<RetirementPlan>();
@@ -46,7 +74,27 @@ namespace RetirementPlanApp.Controllers
         [HttpPost]
         public async Task<ActionResult> Edit(RetirementPlan plan)
         {
-            var response = await _httpClient.PutAsJsonAsync($"api/retirementplans/{plan.Id}", plan);
+            if (!ModelState.IsValid)
+            {
+                return View(plan);
+            }
+
+            var response = await _httpClient.GetAsync("api/retirementplans");
+            response.EnsureSuccessStatusCode();
+            var jsonString = await response.Content.ReadAsStringAsync();
+
+            // Deserialize the JSON string to a dynamic object
+            var plans = JsonConvert.DeserializeObject<List<RetirementPlan>>(jsonString);
+
+            // Check for duplicate names
+            if (plans.Any(p => p.Name.Equals(plan.Name, StringComparison.OrdinalIgnoreCase)))
+            {
+                ModelState.AddModelError("Name", "A plan with this name already exists.");
+                return View(plan);
+            }
+
+
+            response = await _httpClient.PutAsJsonAsync($"api/retirementplans/{plan.Id}", plan);
             response.EnsureSuccessStatusCode();
             return RedirectToAction("Index");
         }
