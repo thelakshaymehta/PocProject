@@ -10,7 +10,8 @@ using Newtonsoft.Json;
 
 namespace RetirementPlanApp.Controllers
 {
-
+    [Authorize]
+    [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
     public class RetirementPlansController : Controller
     {
         private readonly HttpClient _httpClient = new HttpClient { BaseAddress = new Uri("http://localhost:55674/") };
